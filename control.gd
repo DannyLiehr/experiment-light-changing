@@ -30,9 +30,6 @@ func _update_color_display() -> void:
 func _add_leader(color):
 	leaders.append(color)
 
-func _ready() -> void:
-	_update_color_display()
-
 func _process(_delta: float) -> void:
 	color_list = []
 	for l in leaders:
