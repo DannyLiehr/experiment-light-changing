@@ -8,22 +8,16 @@ var overall_color = Color(1,1,1,1) # Nothing for now.
 func _display_color():
 	if leaders.size() > 2:
 		leaders = leaders.slice(-2)
-	if leaders.size() > 1:
-		# Two characters are in the lead. So, combine the color shown.
-		overall_color = leaders[0].lerp(leaders[1], 0.5)
-	elif leaders.size() == 1:
-		# One distinct leader.
-		overall_color = leaders[0]
-	else:
-		# No leader.
-		overall_color = Color(0,0,0,1) # Black but with alpha now.
-	$"../../Light/Aura".light_color = overall_color
+	match leaders.size():
+		2:
+			return leaders[0].lerp(leaders[1], 0.5)
+		1:
+			return leaders[0]
+		_:
+			return Color.BLACK
 
-func _ready():
-	_display_color()
-
-func _process(delta: float) -> void:
-	_display_color()
+func _process(_delta: float) -> void:
+	$"../../Light/Aura".light_color = _display_color()
 	color_list = []
 	for l in leaders:
 		if l == Color.RED:
