@@ -4,7 +4,6 @@ var leaders = []
 var color_list = []
 var overall_color = Color(1,1,1,1) # Nothing for now.
 
-
 func _display_color():
 	if leaders.size() > 2:
 		leaders = leaders.slice(-2)
@@ -16,8 +15,22 @@ func _display_color():
 		_:
 			return Color.BLACK
 
-func _process(_delta: float) -> void:
+func _update_color_display() -> void:
 	$"../../Light/Aura".light_color = _display_color()
+	var color_names = leaders.map(func(color):
+			match color:
+				Color.RED: return "Red"
+				Color.GREEN: return "Green"
+				Color.BLUE: return "Blue"
+				Color.WHITE: return "White"
+				_: return "Unknown"
+			)
+	$Panel/MixLabel.text = ", ".join(color_names)
+
+func _ready() -> void:
+	_update_color_display()
+
+func _process(_delta: float) -> void:
 	color_list = []
 	for l in leaders:
 		if l == Color.RED:
@@ -30,6 +43,7 @@ func _process(_delta: float) -> void:
 			color_list.append("White")
 	var joined_string = ", ".join(color_list)
 	$Panel/MixLabel.text = joined_string
+	_update_color_display()
 
 func _on_red_pressed() -> void:
 	leaders.append(Color.RED)
