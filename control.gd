@@ -27,6 +27,9 @@ func _update_color_display() -> void:
 			)
 	$Panel/MixLabel.text = ", ".join(color_names)
 
+func _add_leader(color):
+	leaders.append(color)
+
 func _ready() -> void:
 	_update_color_display()
 
@@ -46,16 +49,16 @@ func _process(_delta: float) -> void:
 	_update_color_display()
 
 func _on_red_pressed() -> void:
-	leaders.append(Color.RED)
+	_add_leader(Color.RED)
 
 func _on_blue_pressed() -> void:
-	leaders.append(Color.BLUE)
+	_add_leader(Color.BLUE)
 
 func _on_green_pressed() -> void:
-	leaders.append(Color.GREEN)
+	_add_leader(Color.GREEN)
 
 func _on_white_pressed() -> void:
-	leaders.append(Color.WHITE)
+	_add_leader(Color.WHITE)
 
 func _on_clear_pressed() -> void:
 	leaders = []
