@@ -6,8 +6,8 @@ var overall_color = Color(1,1,1,1) # Nothing for now.
 
 
 func _display_color():
-	while leaders.size() > 2:
-		leaders.pop_front()
+	if leaders.size() > 2:
+		leaders = leaders.slice(-2)
 	if leaders.size() > 1:
 		# Two characters are in the lead. So, combine the color shown.
 		overall_color = leaders[0].lerp(leaders[1], 0.5)
